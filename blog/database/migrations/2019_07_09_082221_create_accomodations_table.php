@@ -17,10 +17,9 @@ class CreateAccomodationsTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->text('description');
-            $table->string('phone number', 15);
+            $table->string('phonenumber', 15);
             $table->double('price', 5, 2);
-            $table->integer('room count');
-            $table->timestamps();
+            $table->integer('roomcount');
         });
     }
 

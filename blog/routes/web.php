@@ -13,10 +13,14 @@
 
 // Route::view('/', 'first');
 
-Route::get("/", "TestController@list");
-Route::get("/{id}", "TestController@show");
+Route::redirect('/', '/accomodations');
 
-Route::post('/', 'TestController@post');
+Route::get("/accomodations", "AccomodationsController@list");
+
+Route::get('/accomodations/create', 'AccomodationsController@create');
+Route::post('/accomodations', 'AccomodationsController@store');
+
+Route::get("/accomodations/{id}", "AccomodationsController@show");
 
 // Route::get('/{id}', function ($id) {
 //     return view('welcome');
