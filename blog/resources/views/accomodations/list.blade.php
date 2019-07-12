@@ -8,6 +8,8 @@
 
 
 @section('content')
+<input type="button" onCLick="location.href='http://127.0.0.1:8000/accomodations/create';" value="Create New" />
+<br><br><br>
 
 <ol>
 @foreach ($users as $user)
@@ -21,4 +23,6 @@
 @endforeach
 </ol>
 
+<input type="button" onCLick="location.href='http://127.0.0.1:8000/accomodations/create';" value="Create New" />
+<br><br><br>
 @endsection

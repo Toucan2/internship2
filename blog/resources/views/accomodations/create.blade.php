@@ -26,7 +26,7 @@
     </div>
 
     <div>
-        <input type="number" name='price' placeholder='Price'>
+        <input type="number" name='price' step=0.01 placeholder='Price'>
     </div>
 
     <div>
