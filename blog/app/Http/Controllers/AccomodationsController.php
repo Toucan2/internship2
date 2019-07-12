@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Accomodation;
 
 class AccomodationsController extends Controller
 {
-    public function list() {
+    public function index() {
         $users = DB::table('accomodations')->get();
         return view('accomodations.list')->with('users', $users);
-    }
-
-    public function show($id) {
-        $user = DB::table('accomodations')->find($id);
-        return view('accomodations.show')->with('user', $user);
     }
 
     public function create() {
@@ -32,6 +26,16 @@ class AccomodationsController extends Controller
 
         $accomodation->save();
 
+        return redirect('/accomodations');
+    }
+
+    public function show($id) {
+        $user = DB::table('accomodations')->find($id);
+        return view('accomodations.show')->with('user', $user)->with('id', $id);
+    }
+
+    public function destroy($id) {
+        DB::delete('DELETE FROM accomodations WHERE id = ?', [$id]);    // not working with $id ( [$id] )
         return redirect('/accomodations');
     }
 }

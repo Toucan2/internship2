@@ -13,12 +13,12 @@
 
 <ol>
 @foreach ($users as $user)
-<li>{{ $user->name }}</li>
-<h5>{{ $user->id }}</h5>
-<h5>{{ $user->description }}</h5>
-<h5>{{ $user->phonenumber }}</h5>
-<h5>{{ $user->price }}</h5>
-<h5>{{ $user->roomcount }}</h5>
+<li>Name: {{ $user->name }}</li>
+<h5>ID: {{ $user->id }}</h5>
+<h5>Desc.: {{ $user->description }}</h5>
+<h5>Phone: {{ $user->phonenumber }}</h5>
+<h5>Price: {{ $user->price }}</h5>
+<h5>Rooms: {{ $user->roomcount }}</h5>
 <br><br>
 @endforeach
 </ol>

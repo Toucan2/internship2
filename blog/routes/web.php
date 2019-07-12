@@ -11,21 +11,40 @@
 |
 */
 
-// Route::view('/', 'first');
-
-Route::redirect('/', '/accomodations');
-
-Route::get("/accomodations", "AccomodationsController@list");
-
-Route::get('/accomodations/create', 'AccomodationsController@create');
-Route::post('/accomodations', 'AccomodationsController@store');
-
-Route::get("/accomodations/{id}", "AccomodationsController@show");
-
 // Route::get('/{id}', function ($id) {
 //     return view('welcome');
 // });
 
-// Route::get('/mydatabase', function () {
-//     return view('first');
-// });
+
+
+// DISPLAY JSON ---------------------------------------------------------------
+
+Route::redirect('/', '/accomodations');
+
+Route::get("/accomodations", "AccomodationsController@index");
+Route::get('/accomodations/create', 'AccomodationsController@create');
+Route::post('/accomodations', 'AccomodationsController@store');
+Route::get("/accomodations/{id}", "AccomodationsController@show");
+// some more CRUD routes will go here...
+Route::delete('/accomodations/{id}', 'AccomodationsController@destroy');
+// fake DELETE:
+Route::get('/accomodations/delete/{id}', 'AccomodationsController@destroy');
+
+// ------------------------------------------------------------------------------
+
+
+
+// DISPLAY VIEWS ---------------------------------------------------------------
+
+Route::redirect('/api', '/api/accomodations');
+
+Route::get("/api/accomodations", "ApiController@index");
+Route::get('/api/accomodations/create', 'ApiController@create');
+Route::post('/api/accomodations', 'ApiController@store');
+Route::get("/api/accomodations/{id}", "ApiController@show");
+// some more CRUD routes will go here...
+Route::delete('/api/accomodations/{id}', 'ApiController@destroy');
+// fake DELETE:
+Route::get('/api/accomodations/delete/{id}', 'ApiController@destroy');
+
+// ------------------------------------------------------------------------------
