@@ -38,4 +38,9 @@ class AccomodationsController extends Controller
         DB::delete('DELETE FROM accomodations WHERE id = ?', [$id]);    // not working with $id ( [$id] )
         return redirect('/accomodations');
     }
+
+    public function dashboard() {
+        $users = DB::table('accomodations')->get();
+        return view('accomodations.dashboard')->with('users', $users);
+    }
 }

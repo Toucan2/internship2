@@ -21,6 +21,10 @@
 
 Route::redirect('/', '/accomodations');
 
+// in testing:
+Route::get('/accomodations/dashboard', 'AccomodationsController@dashboard');
+// -----------
+
 Route::get("/accomodations", "AccomodationsController@index");
 Route::get('/accomodations/create', 'AccomodationsController@create');
 Route::post('/accomodations', 'AccomodationsController@store');
