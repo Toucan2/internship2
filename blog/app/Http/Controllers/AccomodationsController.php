@@ -26,7 +26,7 @@ class AccomodationsController extends Controller
 
         $accomodation->save();
 
-        return redirect('/accomodations');
+        // return redirect('/accomodations');
     }
 
     public function show($id) {
