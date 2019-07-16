@@ -7,16 +7,19 @@ use App\Accomodation;
 
 class AccomodationsController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $users = DB::table('accomodations')->get();
         return view('accomodations.list')->with('users', $users);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('accomodations.create');
     }
 
-    public function store() {
+    public function store()
+    {
         $accomodation = new Accomodation();
         $accomodation->name = request('name');
         $accomodation->description = request('description');
@@ -27,19 +30,25 @@ class AccomodationsController extends Controller
         $accomodation->save();
 
         // return redirect('/accomodations');
+        // return redirect('/accomodations/' . $accomodation->id);
+        return response()->json($accomodation);
+        // return $this->show($accomodation->id);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $user = DB::table('accomodations')->find($id);
         return view('accomodations.show')->with('user', $user)->with('id', $id);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         DB::delete('DELETE FROM accomodations WHERE id = ?', [$id]);    // not working with $id ( [$id] )
         return redirect('/accomodations');
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         $users = DB::table('accomodations')->get();
         return view('accomodations.dashboard')->with('users', $users);
     }

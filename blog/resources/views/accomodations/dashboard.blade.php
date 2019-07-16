@@ -14,17 +14,6 @@
 <script type='text/javascript'>
 
     function save() {
-        // update webpage:
-        var markup = '<tr>' +
-            '<td>' + '-' + '</td>' +
-            '<td>' + $('#name').val() + '</td>' +
-            '<td>' + $('#description').val() + '</td>' +
-            '<td>' + $('#telephone').val() + '</td>' +
-            '<td>' + $('#price').val() + '</td>' +
-            '<td>' + $('#rooms').val() + '</td>' +
-            '</tr>';
-        $('#accTable tbody').append(markup);
-
         // update database:
         $.ajax({
             url: '/accomodations',
@@ -37,8 +26,17 @@
                 price: $('#price').val(),
                 rooms: $('#rooms').val()
             },
-            success: function() {
-                //
+            success: function($data) {
+                // update webpage:
+                var markup = '<tr>' +
+                    '<td>' + $data.id + '</td>' +
+                    '<td>' + $data.name + '</td>' +
+                    '<td>' + $data.description + '</td>' +
+                    '<td>' + $data.phonenumber + '</td>' +
+                    '<td>' + $data.price + '</td>' +
+                    '<td>' + $data.roomcount + '</td>' +
+                    '</tr>';
+                $('#accTable tbody').append(markup);
             }
         });
     }
@@ -47,11 +45,12 @@
         // update webpage:
         $('#accTable').on('click', '.deleteBtn', function() {
             $(this).closest('tr').remove();
-        });   // why does this work ?! (2 on-click-listenters)
+        }); // why does this work ?! (2 on-click-listenters)
 
         // update database:
         //
     }
+
 </script>
 
 {{ csrf_field() }}

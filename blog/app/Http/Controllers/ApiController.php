@@ -46,9 +46,9 @@ class ApiController extends Controller
 
         $accomodation->save();
 
-        // return response()->json($accomodation);
+        return response()->json($accomodation);
         // return redirect('/api/accomodations/' . $accomodation->id);
-        return $this->show($accomodation->id);
+        // return $this->show($accomodation->id);
     }
 
     /**
