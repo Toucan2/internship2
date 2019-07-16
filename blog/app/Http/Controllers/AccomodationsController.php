@@ -44,7 +44,8 @@ class AccomodationsController extends Controller
     public function destroy($id)
     {
         DB::delete('DELETE FROM accomodations WHERE id = ?', [$id]);    // not working with $id ( [$id] )
-        return redirect('/accomodations');
+        // return redirect('/accomodations');
+        return response()->json(['success' => true]);
     }
 
     public function dashboard()

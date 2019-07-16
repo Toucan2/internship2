@@ -12,7 +12,6 @@
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
 <!-- <script type='text/javascript' src='/home/test/internship/blog/public/js/dashInteractivity.js'></script> -->
 <script type='text/javascript'>
-
     function save() {
         // update database:
         $.ajax({
@@ -26,31 +25,44 @@
                 price: $('#price').val(),
                 rooms: $('#rooms').val()
             },
-            success: function($data) {
+            success: function(data) {
                 // update webpage:
                 var markup = '<tr>' +
-                    '<td>' + $data.id + '</td>' +
-                    '<td>' + $data.name + '</td>' +
-                    '<td>' + $data.description + '</td>' +
-                    '<td>' + $data.phonenumber + '</td>' +
-                    '<td>' + $data.price + '</td>' +
-                    '<td>' + $data.roomcount + '</td>' +
+                    '<td>' + data.id + '</td>' +
+                    '<td>' + data.name + '</td>' +
+                    '<td>' + data.description + '</td>' +
+                    '<td>' + data.phonenumber + '</td>' +
+                    '<td>' + data.price + '</td>' +
+                    '<td>' + data.roomcount + '</td>' +
+                    '<td><button class="deleteBtn" onclick="remove()">del</button></td>' +
                     '</tr>';
                 $('#accTable tbody').append(markup);
+
+                console.log("database: created id=" + data.id);
             }
         });
     }
 
     function remove() {
-        // update webpage:
         $('#accTable').on('click', '.deleteBtn', function() {
-            $(this).closest('tr').remove();
-        }); // why does this work ?! (2 on-click-listenters)
+            // update webpage:
+            var row = $(this).closest('tr');
+            var id = row.find('td:first').html();
+            row.remove();
 
-        // update database:
-        //
+            // update database:
+            $.ajax({
+                url: '/accomodations/' + id,
+                type: 'POST',
+                data: {
+                    _method: 'DELETE'
+                },
+                success: function() {
+                    console.log("database: deleted id=" + id);
+                }
+            });
+        });    // why does this work ?! (2 on-click-listenters)
     }
-
 </script>
 
 {{ csrf_field() }}
