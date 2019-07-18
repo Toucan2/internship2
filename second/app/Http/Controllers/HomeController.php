@@ -44,4 +44,12 @@ class HomeController extends Controller
             ->get();
         return view('myaccommodations')->with('accommodations', $myaccommodations);
     }
+
+    public function owners()
+    {
+        $owners = DB::table('users')
+            ->select('users.id', 'users.name', 'users.email')
+            ->get();
+        return view('owners')->with('owners', $owners);
+    }
 }

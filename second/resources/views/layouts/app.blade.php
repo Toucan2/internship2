@@ -46,6 +46,9 @@
                     <a class="navbar-brand" href="/myaccommodations">
                         My Accommodations
                     </a>
+                    <a class="navbar-brand" href="/owners">
+                        Owners
+                    </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
