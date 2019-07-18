@@ -10,7 +10,7 @@
 @section('content')
 
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
-<!-- <script type='text/javascript' src='/home/test/internship/blog/public/js/dashInteractivity.js'></script> -->
+<!-- <script type='text/javascript' src='{{asset("js/dashInteractivity.js")}}'></script> -->
 <script type='text/javascript'>
     function save() {
         // update database:
