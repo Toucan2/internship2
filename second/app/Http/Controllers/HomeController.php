@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $accommodations = DB::table('accommodations')
+            ->leftJoin('users', 'users.email', '=', 'accommodations.owner_email')
+            ->select('accommodations.*', 'users.name', 'users.email')
+            ->orderBy('id', 'asc')
+            ->get();
+        return view('home')->with('accommodations', $accommodations);
+    }
+
+    public function list()
+    {
+        $email = Auth::user()->email;
+        $myaccommodations = DB::table('accommodations')
+            ->leftJoin('users', 'users.email', '=', 'accommodations.owner_email')
+            ->select('accommodations.*', 'users.name', 'users.email')
+            ->where('owner_email', $email)
+            ->orderBy('id', 'asc')
+            ->get();
+        return view('myaccommodations')->with('accommodations', $myaccommodations);
     }
 }

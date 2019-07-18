@@ -12,6 +12,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type='text/css'>
+        a:hover {
+            color: black;
+            font-size: 25px;
+        }
+        td, th {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -29,7 +38,13 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Laravel
+                    </a>
+                    <a class="navbar-brand" href="/home">
+                        Home
+                    </a>
+                    <a class="navbar-brand" href="/myaccommodations">
+                        My Accommodations
                     </a>
                 </div>
 

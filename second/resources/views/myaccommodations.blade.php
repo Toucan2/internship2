@@ -8,9 +8,6 @@
         <th>Description</th>
         <th>Price</th>
         <th>Rooms</th>
-        <th>Phone</th>
-        <th>Ow. Name</th>
-        <th>Email</th>
     </thead>
     <tbody>
         @foreach($accommodations as $accommodation)
@@ -21,9 +18,6 @@
             <td>{{ $accommodation->description }}</td>
             <td>{{ $accommodation->price }}</td>
             <td>{{ $accommodation->rooms }}</td>
-            <td>{{ $accommodation->phone }}</td>
-            <td>{{ $accommodation->name }}</td>
-            <td>{{ $accommodation->owner_email }}</td>
         </tr>
 
         @endforeach
