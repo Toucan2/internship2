@@ -1,12 +1,29 @@
 @extends('layouts.app')
 
+@section('head')
+<style>
+    div.filter {
+        margin: auto;
+        width: 10%;
+    }
+</style>
+@endsection
+
 @section('content')
-<table>
+<div class="filter">
+    <select id="sort-select" onchange="onChange()">
+        <option value="id">Sort by ID</option>
+        <option value="price">Sort by Price</option>
+    </select>
+</div>
+
+<br>
+<table id="table">
     <thead>
-        <th>ID</th>
+        <th id='id'>ID</th>
         <th>Acc. Name</th>
         <th>Description</th>
-        <th>Price</th>
+        <th id='price'>Price</th>
         <th>Rooms</th>
     </thead>
     <tbody>
@@ -23,4 +40,7 @@
         @endforeach
     </tbody>
 </table>
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+<script src='{{ asset("js/tabletool.js") }}'></script>
 @endsection

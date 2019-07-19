@@ -14,7 +14,7 @@ class CreateAccommodationsTable extends Migration
     public function up()
     {
         Schema::create('accommodations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('acc_id');
             $table->string('acc_name', 50);
             $table->string('owner_email', 40);
             $table->string('description', 200);
