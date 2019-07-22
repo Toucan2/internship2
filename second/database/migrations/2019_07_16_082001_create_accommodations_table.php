@@ -16,15 +16,14 @@ class CreateAccommodationsTable extends Migration
         Schema::create('accommodations', function (Blueprint $table) {
             $table->increments('acc_id');
             $table->string('acc_name', 50);
-            $table->string('owner_email', 40);
+            $table->unsignedInteger('owner_id');
             $table->string('description', 200);
             $table->string('phone', 15);
             $table->double('price', 6, 2);
             $table->integer('rooms');
-
             $table->timestamps();
 
-            $table->foreign('owner_email')->references('email')->on('users')
+            $table->foreign('owner_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

@@ -39,14 +39,14 @@
         @foreach($accommodations as $accommodation)
 
         <tr>
-            <td>{{ $accommodation->id }}</td>
+            <td>{{ $accommodation->acc_id }}</td>
             <td>{{ $accommodation->acc_name }}</td>
             <td>{{ $accommodation->description }}</td>
             <td>{{ $accommodation->price }}</td>
             <td>{{ $accommodation->rooms }}</td>
-            <td>{{ $accommodation->phone }}</td>
             <td>{{ $accommodation->name }}</td>
-            <td>{{ $accommodation->owner_email }}</td>
+            <td>{{ $accommodation->phone }}</td>
+            <td>{{ $accommodation->email }}</td>
         </tr>
 
         @endforeach

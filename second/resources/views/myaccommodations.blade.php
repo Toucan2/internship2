@@ -30,7 +30,7 @@
         @foreach($accommodations as $accommodation)
 
         <tr>
-            <td>{{ $accommodation->id }}</td>
+            <td>{{ $accommodation->acc_id }}</td>
             <td>{{ $accommodation->acc_name }}</td>
             <td>{{ $accommodation->description }}</td>
             <td>{{ $accommodation->price }}</td>

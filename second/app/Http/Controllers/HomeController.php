@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $accommodations = DB::table('accommodations')
-            ->leftJoin('users', 'users.email', '=', 'accommodations.owner_email')
+            ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')
             ->select('accommodations.*', 'users.name', 'users.email')
             ->orderBy('id', 'asc')
             ->get();
@@ -37,9 +37,9 @@ class HomeController extends Controller
     {
         $email = Auth::user()->email;
         $myaccommodations = DB::table('accommodations')
-            ->leftJoin('users', 'users.email', '=', 'accommodations.owner_email')
+            ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')
             ->select('accommodations.*', 'users.name', 'users.email')
-            ->where('owner_email', $email)
+            ->where('email', $email)
             ->orderBy('id', 'asc')
             ->get();
         return view('myaccommodations')->with('accommodations', $myaccommodations);
@@ -47,8 +47,11 @@ class HomeController extends Controller
 
     public function owners()
     {
-        $owners = DB::table('users')
-            ->select('users.id', 'users.name', 'users.email')
+        $owners = DB::table('accommodations')
+            ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')
+            ->select('users.id', 'users.name', 'users.email',
+                DB::raw('count(accommodations.acc_id) as total'), DB::raw('sum(accommodations.price) as income'))
+            ->groupBy('users.id')
             ->get();
         return view('owners')->with('owners', $owners);
     }
