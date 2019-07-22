@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/myaccommodations', 'HomeController@list');
 Route::get('/owners', 'HomeController@owners');
+
+Route::get('api/home', 'ApiController@sortedIndex');

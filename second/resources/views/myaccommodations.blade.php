@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="filter">
-    <select id="sort-select" onchange="onChange()">
+    <select class='select' id="sort-select" onchange="onChange()">
         <option value="id">Sort by ID</option>
         <option value="price">Sort by Price</option>
     </select>
@@ -42,5 +42,5 @@
 </table>
 
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
-<script src='{{ asset("js/tabletool.js") }}'></script>
+<!-- <script src='{{ asset("js/tableTool.js") }}'></script> -->
 @endsection
