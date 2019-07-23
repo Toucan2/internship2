@@ -36,7 +36,9 @@ class ApiController extends Controller
 
     public function sortedList(Request $request)
     {
-        $email = Auth::user()->email;
+        $email = $request->query('email', '');
+        $email = ($email != '') ? $email : Auth::user()->email;
+
         $type = $request->query('sort', 'id');
         $accommodations = DB::table('accommodations')
             ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')

@@ -28,9 +28,9 @@ class HomeController extends Controller
         $accommodations = DB::table('accommodations')
             ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')
             ->select('accommodations.*', 'users.name', 'users.email')
-            ->orderBy('id', 'asc')
+            ->orderBy('acc_id', 'asc')
             ->get();
-        return view('home')->with('accommodations', $accommodations);
+        return view('home')->with('accommodations', $accommodations)->with('auth_email', Auth::user()->email);
     }
 
     public function list()
@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')
             ->select('accommodations.*', 'users.name', 'users.email')
             ->where('email', $email)
-            ->orderBy('id', 'asc')
+            ->orderBy('acc_id', 'asc')
             ->get();
         return view('myaccommodations')->with('accommodations', $myaccommodations);
     }

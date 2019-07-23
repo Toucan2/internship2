@@ -15,14 +15,14 @@
 
 @section('content')
 <div class='filter'>
-    <select class="select" id="sort-select" onchange="sort()">
+    <select class="select" id="sort-select" onchange="sort('home')">
         <option value="id">Sort by ID</option>
         <option value="price">Sort by Price</option>
     </select>
 
     <button onclick="showAll()">Show All</button>
-    <input id="email" type="text" placeholder="name@example.com">
-    <button onclick="filter()">Filter</button>
+    <input id="email-input" type="text" placeholder={{ $auth_email }}>
+    <button onclick="sort('myaccommodations')">Filter</button>
 </div>
 
 <br>
@@ -72,14 +72,43 @@
 
 <!-- Backend sort: -->
 <script>
-    function sort() {
+    function showAll() {
         $.ajax({
             url: '/api/home?sort=' + $('#sort-select').val(),
             type: 'GET',
             success: function(data) {
                 // update front-end
 
-                $('#table tbody').empty();  // first remove current <tbody> content
+                $('#table tbody').empty(); // first remove current <tbody> content
+
+                // then add the sorted <tr>s
+                for (var i = 0; i < data.length; i++) {
+                    var markup = '<tr>' +
+                        '<td>' + data[i].acc_id + '</td>' +
+                        '<td>' + data[i].acc_name + '</td>' +
+                        '<td>' + data[i].description + '</td>' +
+                        '<td>' + data[i].price + '</td>' +
+                        '<td>' + data[i].rooms + '</td>' +
+                        '<td>' + data[i].name + '</td>' +
+                        '<td>' + data[i].phone + '</td>' +
+                        '<td>' + data[i].email + '</td>' +
+                        '</tr>';
+                    $('#table tbody').append(markup);
+                }
+            }
+        });
+    }
+
+    function sort(route) {
+        $.ajax({
+            url: '/api/' + route +
+                '?sort=' + $('#sort-select').val() +  // $('#sort-select').val()
+                '&email=' + $('#email-input').val(),  // $('#email-input').val()
+            type: 'GET',
+            success: function(data) {
+                // update front-end
+
+                $('#table tbody').empty(); // first remove current <tbody> content
 
                 // then add the sorted <tr>s
                 for (var i = 0; i < data.length; i++) {
