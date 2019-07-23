@@ -11,10 +11,10 @@
 
 @section('content')
 <div class="filter">
-    <select class='select' id="sort-select" onchange="onChange()">
+    <select class='select' id="sort-select" onchange="sort()">
         <option value="id">Sort by ID</option>
-        <option value="price">Sort by Price</option>
-        <option value="accommodations">Sort by Accommodations</option>
+        <option value="income">Sort by Income</option>
+        <option value="total">Sort by Accommodations</option>
     </select>
 </div>
 
@@ -46,5 +46,30 @@
 
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
 <!-- <script src='{{ asset("js/tableTool.js") }}'></script> -->
+<script>
+    function sort() {
+        $.ajax({
+            url: '/api/owners?sort=' + $('#sort-select').val(),
+            type: 'GET',
+            success: function(data) {
+                // update front-end
+
+                $('#table tbody').empty();  // first remove current <tbody> content
+
+                // then add the sorted <tr>s
+                for (var i = 0; i < data.length; i++) {
+                    var markup = '<tr>' +
+                        '<td>' + data[i].id + '</td>' +
+                        '<td>' + data[i].name + '</td>' +
+                        '<td>' + data[i].email + '</td>' +
+                        '<td>' + data[i].total + '</td>' +
+                        '<td>' + data[i].income + '</td>' +
+                        '</tr>';
+                    $('#table tbody').append(markup);
+                }
+            }
+        });
+    }
+</script>
 
 @endsection

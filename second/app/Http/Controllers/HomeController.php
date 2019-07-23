@@ -49,8 +49,13 @@ class HomeController extends Controller
     {
         $owners = DB::table('accommodations')
             ->leftJoin('users', 'users.id', '=', 'accommodations.owner_id')
-            ->select('users.id', 'users.name', 'users.email',
-                DB::raw('count(accommodations.acc_id) as total'), DB::raw('sum(accommodations.price) as income'))
+            ->select(
+                'users.id',
+                'users.name',
+                'users.email',
+                DB::raw('count(accommodations.acc_id) as total'),
+                DB::raw('sum(accommodations.price) as income')
+            )
             ->groupBy('users.id')
             ->get();
         return view('owners')->with('owners', $owners);

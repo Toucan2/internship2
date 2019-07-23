@@ -33,8 +33,8 @@
         <th>Description</th>
         <th id='price'>Price</th>
         <th>Rooms</th>
-        <th>Phone</th>
         <th>Ow. Name</th>
+        <th>Phone</th>
         <th>Email</th>
     </thead>
     <tbody>

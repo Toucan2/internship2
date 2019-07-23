@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="filter">
-    <select class='select' id="sort-select" onchange="onChange()">
+    <select class='select' id="sort-select" onchange="sort()">
         <option value="id">Sort by ID</option>
         <option value="price">Sort by Price</option>
     </select>
@@ -43,4 +43,29 @@
 
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
 <!-- <script src='{{ asset("js/tableTool.js") }}'></script> -->
+<script>
+    function sort() {
+        $.ajax({
+            url: '/api/myaccommodations?sort=' + $('#sort-select').val(),
+            type: 'GET',
+            success: function(data) {
+                // update front-end
+
+                $('#table tbody').empty();  // first remove current <tbody> content
+
+                // then add the sorted <tr>s
+                for (var i = 0; i < data.length; i++) {
+                    var markup = '<tr>' +
+                        '<td>' + data[i].acc_id + '</td>' +
+                        '<td>' + data[i].acc_name + '</td>' +
+                        '<td>' + data[i].description + '</td>' +
+                        '<td>' + data[i].price + '</td>' +
+                        '<td>' + data[i].rooms + '</td>' +
+                        '</tr>';
+                    $('#table tbody').append(markup);
+                }
+            }
+        });
+    }
+</script>
 @endsection

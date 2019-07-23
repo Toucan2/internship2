@@ -22,3 +22,5 @@ Route::get('/myaccommodations', 'HomeController@list');
 Route::get('/owners', 'HomeController@owners');
 
 Route::get('api/home', 'ApiController@sortedIndex');
+Route::get('api/myaccommodations', 'ApiController@sortedList');
+Route::get('api/owners', 'ApiController@sortedOwners');
