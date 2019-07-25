@@ -8,7 +8,11 @@
 
     div.filter {
         margin: auto;
-        width: 40%;
+        width: 50%;
+    }
+
+    #table tbody tr:hover {
+        cursor: pointer;
     }
 </style>
 @endsection
@@ -21,7 +25,7 @@
     </select>
 
     <button onclick="showAll()">Show All</button>
-    <input id="email-input" type="text" placeholder={{ $auth_email }}>
+    <input size="25" id="email-input" type="text" placeholder="ex. {{$auth_email}}">
     <button onclick="sort('myaccommodations')">Filter</button>
 </div>
 
@@ -41,7 +45,7 @@
         @foreach($accommodations as $accommodation)
 
         <tr>
-            <td>{{ $accommodation->acc_id }}</td>
+            <td>#{{ $accommodation->acc_id }}</td>
             <td>{{ $accommodation->acc_name }}</td>
             <td>{{ $accommodation->description }}</td>
             <td>{{ $accommodation->price }}</td>
@@ -72,6 +76,15 @@
 
 <!-- Backend sort: -->
 <script>
+    $(function() {
+        $('#table tbody tr').each(function(index) {
+            $(this).click(function() {
+                var id = $(document.getElementById('table').rows[index+1].cells[0]).text().substring(1);
+                window.location.href = '/book?id=' + id;
+            })
+        })
+    });
+
     function showAll() {
         $.ajax({
             url: '/api/home?sort=' + $('#sort-select').val(),
@@ -84,7 +97,7 @@
                 // then add the sorted <tr>s
                 for (var i = 0; i < data.length; i++) {
                     var markup = '<tr>' +
-                        '<td>' + data[i].acc_id + '</td>' +
+                        '<td>' + '#' + data[i].acc_id + '</td>' +
                         '<td>' + data[i].acc_name + '</td>' +
                         '<td>' + data[i].description + '</td>' +
                         '<td>' + data[i].price + '</td>' +
@@ -102,8 +115,8 @@
     function sort(route) {
         $.ajax({
             url: '/api/' + route +
-                '?sort=' + $('#sort-select').val() +  // $('#sort-select').val()
-                '&email=' + $('#email-input').val(),  // $('#email-input').val()
+                '?sort=' + $('#sort-select').val() + // $('#sort-select').val()
+                '&email=' + $('#email-input').val(), // $('#email-input').val()
             type: 'GET',
             success: function(data) {
                 // update front-end
@@ -113,7 +126,7 @@
                 // then add the sorted <tr>s
                 for (var i = 0; i < data.length; i++) {
                     var markup = '<tr>' +
-                        '<td>' + data[i].acc_id + '</td>' +
+                        '<td>' + '#' + data[i].acc_id + '</td>' +
                         '<td>' + data[i].acc_name + '</td>' +
                         '<td>' + data[i].description + '</td>' +
                         '<td>' + data[i].price + '</td>' +

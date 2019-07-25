@@ -33,7 +33,7 @@
         @foreach($owners as $owner)
 
         <tr>
-            <td>{{ $owner->id }}</td>
+            <td>#{{ $owner->id }}</td>
             <td>{{ $owner->name }}</td>
             <td>{{ $owner->email }}</td>
             <td>{{ $owner->total }}</td>
@@ -59,7 +59,7 @@
                 // then add the sorted <tr>s
                 for (var i = 0; i < data.length; i++) {
                     var markup = '<tr>' +
-                        '<td>' + data[i].id + '</td>' +
+                        '<td>' + '#' + data[i].id + '</td>' +
                         '<td>' + data[i].name + '</td>' +
                         '<td>' + data[i].email + '</td>' +
                         '<td>' + data[i].total + '</td>' +

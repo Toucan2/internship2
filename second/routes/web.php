@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/myaccommodations', 'HomeController@list');
 Route::get('/owners', 'HomeController@owners');
 
-Route::get('api/home', 'ApiController@sortedIndex');
-Route::get('api/myaccommodations', 'ApiController@sortedList');
-Route::get('api/owners', 'ApiController@sortedOwners');
+Route::get('/book', 'HomeController@displayForm');
+Route::post('/book', 'HomeController@storeBooking');
+
+Route::get('/api/home', 'ApiController@sortedIndex');
+Route::get('/api/myaccommodations', 'ApiController@sortedList');
+Route::get('/api/owners', 'ApiController@sortedOwners');

@@ -77,7 +77,7 @@ class ApiController extends Controller
         switch ($type) {
             case 'id':
                 return response()->json(
-                    $owners->orderBy('accommodations.acc_id', 'asc')->get()
+                    $owners->orderBy('users.id', 'asc')->get()
                 );
                 break;
 

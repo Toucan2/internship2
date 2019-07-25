@@ -30,7 +30,7 @@
         @foreach($accommodations as $accommodation)
 
         <tr>
-            <td>{{ $accommodation->acc_id }}</td>
+            <td>#{{ $accommodation->acc_id }}</td>
             <td>{{ $accommodation->acc_name }}</td>
             <td>{{ $accommodation->description }}</td>
             <td>{{ $accommodation->price }}</td>
@@ -56,7 +56,7 @@
                 // then add the sorted <tr>s
                 for (var i = 0; i < data.length; i++) {
                     var markup = '<tr>' +
-                        '<td>' + data[i].acc_id + '</td>' +
+                        '<td>' + '#' + data[i].acc_id + '</td>' +
                         '<td>' + data[i].acc_name + '</td>' +
                         '<td>' + data[i].description + '</td>' +
                         '<td>' + data[i].price + '</td>' +

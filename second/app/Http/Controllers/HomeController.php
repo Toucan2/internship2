@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Booking;
 
 class HomeController extends Controller
 {
@@ -59,5 +60,29 @@ class HomeController extends Controller
             ->groupBy('users.id')
             ->get();
         return view('owners')->with('owners', $owners);
+    }
+
+    public function displayForm(Request $request)
+    {
+        $acc_id = $request->query('id');
+        $user_id = DB::table('users')->where('email', Auth::user()->email)->first()->id;  // email is unique (no 2 same emails)
+
+        return view('book')->with('acc_id', $acc_id)->with('user_id', $user_id);
+    }
+
+    public function storeBooking()
+    {
+        $booking = new Booking();
+        $booking->user_id = request('user_id');
+        $booking->acc_id = request('acc_id');
+        $booking->start_date = request('start_date');
+        $booking->end_date = request('end_date');
+        $booking->cost = 100;
+
+        $booking->save();
+
+        return response()->json([
+            'success' => 'true'
+        ]);
     }
 }
