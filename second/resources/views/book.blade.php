@@ -77,7 +77,11 @@
                 end_date: $('#enddate-input').val()
             },
             success: function(data) {
-                // window.location.href = '/home';
+                // $('.form').hide();
+                // $('#succes').show();
+            },
+            error: function() {
+                alert('Date Unavailable');
             }
         });
     }

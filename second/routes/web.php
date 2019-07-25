@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/myaccommodations', 'HomeController@list');
 Route::get('/owners', 'HomeController@owners');
+Route::get('/mybookings', 'HomeController@myBookings');
 
 Route::get('/book', 'HomeController@displayForm');
 Route::post('/book', 'HomeController@storeBooking');

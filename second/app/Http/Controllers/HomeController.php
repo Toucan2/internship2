@@ -75,24 +75,48 @@ class HomeController extends Controller
 
     public function storeBooking()
     {
-        $booking = new Booking();
-        $booking->user_id = request('user_id');
-        $booking->acc_id = request('acc_id');
-        $booking->start_date = request('start_date'); // "2019-11-15"
-        $booking->end_date = request('end_date');
-        
-        // calculate days
-        $start = new DateTime(request('start_date'));
-        $end = new DateTime(request('end_date'));
-        $days = $start->diff($end)->days;
-        
-        $booking->cost = $days * Accommodation::find($booking->acc_id)->price;
 
-        $booking->save();
+        $start = request('start_date');
+        $end = request('end_date');
+        $booked_dates = DB::table('bookings')
+            ->where('end_date', '>=', $start)
+            ->where('start_date', '<=', $end)
+            ->select('start_date', 'end_date')
+            ->get();
 
-        return response()->json([
-            'status' => 'success',
-            'info' => ''
-        ]);
+        if (count($booked_dates) != 0) {
+            return response()->json(['error' => 'error'], 500);
+        }
+
+            $booking = new Booking();
+            $booking->user_id = request('user_id');
+            $booking->acc_id = request('acc_id');
+            $booking->start_date = request('start_date'); // "2019-11-15"
+            $booking->end_date = request('end_date');
+
+            // calculate days
+            $start = new DateTime(request('start_date'));
+            $end = new DateTime(request('end_date'));
+            $days = $start->diff($end)->days;
+
+            $booking->cost = $days * Accommodation::find($booking->acc_id)->price;
+
+            $booking->save();
+
+            return response()->json([
+                'status' => 'success',
+                'info' => ''
+            ]);
+    }
+
+    public function myBookings()
+    {
+        $id = Auth::user()->id;
+        $mybookings = DB::table('bookings')
+            ->select('acc_id', 'start_date', 'end_date', 'cost')
+            ->orderBy('bookings.acc_id', 'asc')
+            ->get();
+
+        return view('mybookings')->with('bookings', $mybookings);
     }
 }
