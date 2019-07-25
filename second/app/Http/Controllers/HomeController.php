@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Booking;
+use App\Accommodation;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -65,9 +67,10 @@ class HomeController extends Controller
     public function displayForm(Request $request)
     {
         $acc_id = $request->query('id');
-        $user_id = DB::table('users')->where('email', Auth::user()->email)->first()->id;  // email is unique (no 2 same emails)
+        $user_id = Auth::user()->id;  // email is unique (no 2 same emails)
+        $cost = Accommodation::find($acc_id)->price;
 
-        return view('book')->with('acc_id', $acc_id)->with('user_id', $user_id);
+        return view('book')->with('acc_id', $acc_id)->with('user_id', $user_id)->with('cost', $cost);
     }
 
     public function storeBooking()
@@ -75,14 +78,21 @@ class HomeController extends Controller
         $booking = new Booking();
         $booking->user_id = request('user_id');
         $booking->acc_id = request('acc_id');
-        $booking->start_date = request('start_date');
+        $booking->start_date = request('start_date'); // "2019-11-15"
         $booking->end_date = request('end_date');
-        $booking->cost = 100;
+        
+        // calculate days
+        $start = new DateTime(request('start_date'));
+        $end = new DateTime(request('end_date'));
+        $days = $start->diff($end)->days;
+        
+        $booking->cost = $days * Accommodation::find($booking->acc_id)->price;
 
         $booking->save();
 
         return response()->json([
-            'success' => 'true'
+            'status' => 'success',
+            'info' => ''
         ]);
     }
 }
